@@ -10,6 +10,9 @@
       "outDir": "dist",
       "assets": [
         "assets",
+		"img",
+		"fonts",
+		"themify-icons/fonts",
         "favicon.ico"
       ],
       "index": "index.html",
@@ -19,9 +22,18 @@
       "tsconfig": "tsconfig.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.css",
+		"css/bootstrap.min.css",		
+		"css/nifty.min.css",
+		"css/pace.min.css",
+		"themify-icons/themify-icons.min.css"
       ],
-      "scripts": [],
+      "scripts": [
+		"js/jquery-2.2.4.min.js",
+		"js/bootstrap.min.js",
+		"js/nifty.min.js",
+		"js/pace.min.js"
+	  ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
