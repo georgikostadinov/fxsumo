@@ -1,0 +1,30 @@
+add signal
+
+ <div class='table-responsive'>
+    <table class='table'
+            *ngIf='actions && actions.length'>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Action Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let action of actions'>
+                <td>{{ action.id }}</td>
+                <td>{{ action.name }}</td>
+                <td>{{ action.actionType }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class='row'>
+    <div class='col-md-6'>
+        <select *ngIf='actions && actions.length' class='form-control'>
+            <optgroup *ngFor="let group of actions | groupBy: 'actionType'" label="{{ group.key }}">
+                <option *ngFor='let action of group.value' value="{{ action.id }}" >{{action.name}}</option>
+            </optgroup>
+        </select>
+    </div>
+</div>
