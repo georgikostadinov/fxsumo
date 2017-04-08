@@ -32,7 +32,8 @@
 		"js/jquery-2.2.4.min.js",
 		"js/bootstrap.min.js",
 		"js/nifty.min.js",
-		"js/pace.min.js"
+		"js/pace.min.js",
+		"js/select2.min.js"
 	  ],
       "environmentSource": "environments/environment.ts",
       "environments": {
