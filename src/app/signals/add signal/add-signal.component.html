@@ -1,10 +1,36 @@
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-5 col-md-offset-1">
+        <div ng2FileDrop 
+        class="custom-component-drop-zone panel"
+        [ng2FileDropSupportedFileTypes] = "supportedFileTypes"
+        (ng2FileDropFileAccepted)="dragFileAccepted($event)">
+            <div *ngIf="!imageShown">
+                <h2 class="text-muted">Drop Image Here</h2>
+                <h2 class="text-muted">Or</h2>
+                <h2 class="btn btn-default btn-file btn-lg text-muted">Select file
+                    <input type="file" (change)="fileChange($event)" placeholder="Select file" accept=".jpg" hidden>
+                </h2>
+            </div>
+            <div *ngIf="imageShown">
+                <img [src]="currentImage" width="500px" height="400px">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
         <div class='form-group'>
             <select2 [data]="actions" [options]="actionsOptions"></select2>
         </div>
         <div class='form-group'>
             <select2 [data]="currencyPairs" [options]="currencyPairsOptions"></select2>
+        </div>
+        <div class='form-group'>
+            <input type="number" placeholder="Open Position @" class="form-control">
+        </div>
+        <div class='form-group'>
+            <input type="number" placeholder="Stop Loss" class="form-control">
+        </div>
+        <div class='form-group'>
+            <input type="number" placeholder="Take Profit" class="form-control">
         </div>
     </div>
 </div>

@@ -9,6 +9,7 @@ import { SignalsListComponent } from './list/signals-list.component'
 import { AddSignalComponent } from './add signal/add-signal.component'
 
 import { Select2Module } from 'ng2-select2'
+import { Ng2FileDropModule } from 'ng2-file-drop'
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { Select2Module } from 'ng2-select2'
         SharedModule,
         Select2Module,
         CurrencyPairsModule,
+        Ng2FileDropModule,
         RouterModule.forChild([
             { path: 'signals', component: SignalsListComponent},
             { path: 'add-signal', component: AddSignalComponent }
