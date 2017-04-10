@@ -24,13 +24,41 @@
             <select2 [data]="currencyPairs" [options]="currencyPairsOptions"></select2>
         </div>
         <div class='form-group'>
+            <input type="text" maxlength="30" placeholder="Explanation" class="form-control">
+        </div>
+        <div class='form-group'>
             <input type="number" placeholder="Open Position @" class="form-control">
         </div>
         <div class='form-group'>
             <input type="number" placeholder="Stop Loss" class="form-control">
         </div>
-        <div class='form-group'>
+        <div class='form-group'  (keyup)='takeProfits = 2'>
             <input type="number" placeholder="Take Profit" class="form-control">
+        </div>
+        <div class='form-group' *ngIf='takeProfits > 1' (keyup)='takeProfits = 3'>
+            <input type="number" placeholder="Take Profit 2" class="form-control">
+        </div>
+        <div class='form-group' *ngIf='takeProfits > 2' (keyup)='takeProfits = 4'>
+            <input type="number" placeholder="Take Profit 3" class="form-control">
+        </div>
+        <div class='form-group' *ngIf='takeProfits > 3'>
+            <input type="number" placeholder="Take Profit 4" class="form-control">
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class='col-md-9 col-md-offset-1'>
+        <div class='form-group'>
+            <simple-tiny
+                [elementId]="'my-editor-id'">
+            </simple-tiny>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class='col-md-9 col-md-offset-1'>
+        <div class='form-group'>
+            <input type="button" class='btn btn-info btn-block' value="Create Signal">
         </div>
     </div>
 </div>
