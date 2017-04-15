@@ -1,64 +1,70 @@
-<div class="row">
-    <div class="col-md-5 col-md-offset-1">
-        <div ng2FileDrop 
-        class="custom-component-drop-zone panel"
-        [ng2FileDropSupportedFileTypes] = "supportedFileTypes"
-        (ng2FileDropFileAccepted)="dragFileAccepted($event)">
-            <div *ngIf="!imageShown">
-                <h2 class="text-muted">Drop Image Here</h2>
-                <h2 class="text-muted">Or</h2>
-                <h2 class="btn btn-default btn-file btn-lg text-muted">Select file
-                    <input type="file" (change)="fileChange($event)" placeholder="Select file" accept=".jpg" hidden>
-                </h2>
+<form #addSignalForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-md-5 col-md-offset-1">
+            <div ng2FileDrop 
+            class="custom-component-drop-zone panel"
+            [ng2FileDropSupportedFileTypes] = "supportedFileTypes"
+            (ng2FileDropFileAccepted)="dragFileAccepted($event)">
+                <div *ngIf="!imageShown">
+                    <h2 class="text-muted">Drop Image Here</h2>
+                    <h2 class="text-muted">Or</h2>
+                    <h2 class="btn btn-default btn-file btn-lg text-muted">Select file
+                        <input type="file" (change)="fileChange($event)" placeholder="Select file" accept=".jpg" hidden>
+                    </h2>
+                </div>
+                <div *ngIf="imageShown">
+                    <img [src]="currentImage" width="500px" height="400px">
+                </div>
             </div>
-            <div *ngIf="imageShown">
-                <img [src]="currentImage" width="500px" height="400px">
+        </div>
+        <div class="col-md-4">
+            <div class='form-group'>
+                <select2 [data]="actions" [options]="actionsOptions" (valueChanged)="model.actionID = $event.value"></select2>
+            </div>
+            <div class='form-group'>
+                <select2 [data]="currencyPairs" [options]="currencyPairsOptions" (valueChanged)="model.currencyPairID = $event.value"></select2>
+            </div>
+            <div class='form-group'>
+                <input type="text" maxlength="30" placeholder="Explanation" class="form-control" [(ngModel)] = "model.explanation" name="explanation">
+            </div>
+            <div class='form-group'>
+                <input type="number" step="0.0001" placeholder="Open Position @" class="form-control" [(ngModel)] = "model.openPrice" name = "openPrice">
+            </div>
+            <div class='form-group'>
+                <input type="number" step="0.0001" placeholder="Stop Loss" class="form-control" [(ngModel)] = "model.stopLoss" name = "stopLoss">
+            </div>
+            <div class='form-group'>
+                <input type="number" step="0.0001" placeholder="Take Profit" class="form-control" [(ngModel)] = "model.takeProfit1" name = "takeProfit1">
+            </div>
+            <div class='form-group' *ngIf='model.takeProfit1 > 0 || model.takeProfit2 > 0'>
+                <input type="number" step="0.0001" placeholder="Take Profit 2" class="form-control" [(ngModel)] = "model.takeProfit2" name = "takeProfit2">
+            </div>
+            <div class='form-group' *ngIf='model.takeProfit2 > 0 || model.takeProfit3 > 0'>
+                <input type="number" step="0.0001" placeholder="Take Profit 3" class="form-control" [(ngModel)] = "model.takeProfit3" name = "takeProfit3">
+            </div>
+            <div class='form-group' *ngIf='model.takeProfit3 > 0 || model.takeProfit4 > 0'>
+                <input type="number" step="0.0001" placeholder="Take Profit 4" class="form-control" [(ngModel)] = "model.takeProfit4" name = "takeProfit4">
+            </div>
+            <div class='form-group'>
+                <input type="url" placeholder="Youtube URL" class="form-control" [(ngModel)] = "model.youtubeURL" name="youtubeURL">
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class='form-group'>
-            <select2 [data]="actions" [options]="actionsOptions"></select2>
-        </div>
-        <div class='form-group'>
-            <select2 [data]="currencyPairs" [options]="currencyPairsOptions"></select2>
-        </div>
-        <div class='form-group'>
-            <input type="text" maxlength="30" placeholder="Explanation" class="form-control">
-        </div>
-        <div class='form-group'>
-            <input type="number" placeholder="Open Position @" class="form-control">
-        </div>
-        <div class='form-group'>
-            <input type="number" placeholder="Stop Loss" class="form-control">
-        </div>
-        <div class='form-group'  (keyup)='takeProfits = 2'>
-            <input type="number" placeholder="Take Profit" class="form-control">
-        </div>
-        <div class='form-group' *ngIf='takeProfits > 1' (keyup)='takeProfits = 3'>
-            <input type="number" placeholder="Take Profit 2" class="form-control">
-        </div>
-        <div class='form-group' *ngIf='takeProfits > 2' (keyup)='takeProfits = 4'>
-            <input type="number" placeholder="Take Profit 3" class="form-control">
-        </div>
-        <div class='form-group' *ngIf='takeProfits > 3'>
-            <input type="number" placeholder="Take Profit 4" class="form-control">
+    <div class='row'>
+        <div class='col-md-9 col-md-offset-1'>
+            <div class='form-group'>
+                <simple-tiny
+                    [elementId]="'my-editor-id'"
+                    (onEditorKeyup)="model.description = $event" >
+                </simple-tiny>
+            </div>
         </div>
     </div>
-</div>
-<div class='row'>
-    <div class='col-md-9 col-md-offset-1'>
-        <div class='form-group'>
-            <simple-tiny
-                [elementId]="'my-editor-id'">
-            </simple-tiny>
+    <div class='row'>
+        <div class='col-md-9 col-md-offset-1'>
+            <div class='form-group'>
+                <button type="submit" class='btn btn-info btn-block'>Create Signal</button>
+            </div>
         </div>
     </div>
-</div>
-<div class='row'>
-    <div class='col-md-9 col-md-offset-1'>
-        <div class='form-group'>
-            <input type="button" class='btn btn-info btn-block' value="Create Signal">
-        </div>
-    </div>
-</div>
+</form>

@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core'
+import { Http, RequestOptions, RequestOptionsArgs, Headers } from '@angular/http'
+import { Observable }                                        from 'rxjs/Rx'
 
 import { ActionsService } from '../../actions/actions.service'
 import { CurrencyPairsService } from '../../currency-pairs/currency-pairs.service'
 import { Select2Grouping } from '../../shared/select2.grouping'
 
 import { ActionViewModel } from '../../model/ActionViewModel'
+import { AddSignalViewModel } from '../../model/AddSignalViewModel'
 import { Select2OptionData } from 'ng2-select2'
 import { Ng2FileDropAcceptedFile } from 'ng2-file-drop'
 
@@ -18,6 +21,7 @@ import { Ng2FileDropAcceptedFile } from 'ng2-file-drop'
             align-items: center; 
             text-align: center;
             justify-content: center;
+            border: 1px dashed blue;
         }
     `]
 })
@@ -28,13 +32,16 @@ export class AddSignalComponent implements OnInit {
     actionsOptions: Select2Options = { width: "100%", placeholder: "Select Action" }
     currencyPairsOptions: Select2Options = { width: "100%", placeholder: "Select Instrument" }
     
+    private takeProfits: number = 1
     private supportedFileTypes: string[] = ['image/png', 'image/jpeg', 'image/gif'];
     private imageShown: boolean = false;
     private currentImage: string = '';
+    private model: AddSignalViewModel = { }
 
     constructor(private _actionsService:ActionsService, 
                 private _select2grouping: Select2Grouping,
-                private _currencyPairsService: CurrencyPairsService){        
+                private _currencyPairsService: CurrencyPairsService,
+                private _http: Http){        
     }
 
     ngOnInit(): void{
@@ -51,24 +58,52 @@ export class AddSignalComponent implements OnInit {
         )
     }
 
-     private dragFileAccepted(acceptedFile: Ng2FileDropAcceptedFile) {
- 
-      // Load the image in
-        let fileReader = new FileReader();
-        fileReader.onload = () => { 
-            // Set and show the image
-            this.currentImage = fileReader.result;
-            this.imageShown = true;
-        };
-    
-        // Read in the file
-        fileReader.readAsDataURL(acceptedFile.file);
+    private dragFileAccepted(acceptedFile: Ng2FileDropAcceptedFile) { 
+        this.showUploadedImage(acceptedFile.file)   
     }
 
-    fileChange(event) {
-        let fileList: FileList = event.target.files;
-        let file = fileList[0]
+    private currencyPairChanged(e: any){
+        this.model.currencyPairID = e.value
+    }
 
+    private fileChange(event) {
+        let image = event.target.files[0];  
+        this.model.image = image;   
+
+        this.showUploadedImage(image)   
+    }
+
+    private handle(e){
+        console.log(e);
+    }
+
+    private onSubmit(): void{
+        console.log(this.model);
+        console.log("submitted");
+        //let fileList: FileList = event.target.files;
+        //let file = fileList[0]
+        let formData:FormData = new FormData();
+
+        for (var key in this.model) {
+            if (this.model.hasOwnProperty(key)) {
+                formData.append(key, this.model[key]);                
+            }
+        }
+
+        let headers = new Headers();
+        headers.append('enctype', 'multipart/form-data');
+        headers.append('Accept', 'application/json');
+        let options = new RequestOptions({ headers: headers });
+        this._http.post("http://localhost:1322/signals", formData, options)
+            .map(res => res.json())
+            .catch(error => Observable.throw(error))
+            .subscribe(
+                data => console.log('success'),
+                error => console.log(error)
+            )
+    }   
+
+    private showUploadedImage(image: File){
         let fileReader = new FileReader();
         fileReader.onload = () => { 
             // Set and show the image
@@ -77,6 +112,7 @@ export class AddSignalComponent implements OnInit {
         };
     
         // Read in the file
-        fileReader.readAsDataURL(file);
+        fileReader.readAsDataURL(image);
+        this.model.image = image;    
     }
 }

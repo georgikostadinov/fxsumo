@@ -13,7 +13,7 @@
 import * as models from './models';
 
 export interface AddSignalViewModel {
-    title?: string;
+    explanation?: string;
 
     description?: string;
 
@@ -25,7 +25,13 @@ export interface AddSignalViewModel {
 
     currencyPairID?: number;
 
-    takeProfit?: number;
+    takeProfit1?: number;
+
+    takeProfit2?: number;
+
+    takeProfit3?: number;
+    
+    takeProfit4?: number;
 
     stopLoss?: number;
 
@@ -37,6 +43,5 @@ export interface AddSignalViewModel {
 
     wistiaURL?: string;
 
-    pictureURL?: string;
-
+    image?: File;
 }

@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core'
-import { GroupByPipe } from './pipes/group-by.pipe'
 import { Select2Module } from 'ng2-select2'
-import { Select2Grouping } from './select2.grouping'
+import { FormsModule } from '@angular/forms'
+
+import { GroupByPipe } from './pipes/group-by.pipe'
+
 import { SimpleTinyComponent } from './simple-tiny.component'
+
+import { Select2Grouping } from './select2.grouping'
 
 @NgModule({
     imports: [
-        Select2Module
+        Select2Module,
+        FormsModule
     ],
     declarations: [
         GroupByPipe,
@@ -14,7 +19,8 @@ import { SimpleTinyComponent } from './simple-tiny.component'
     ],
     exports : [
         GroupByPipe,
-        SimpleTinyComponent
+        SimpleTinyComponent,
+        FormsModule
     ],
     providers: [
         Select2Grouping
