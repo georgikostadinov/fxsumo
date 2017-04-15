@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms'
 import { HttpModule } from '@angular/http'
 import { RouterModule } from '@angular/router'
 
+//import { HashLocationStrategy, LocationStrategy } from '@angular/common'
+
 import { AppComponent } from './app.component'
 import { TeamsService } from './shared/teams.service'
 import { ActionsModule } from './actions/actions.module'
@@ -26,12 +28,15 @@ import { SignalsModule } from './signals/signals.module'
     ActionsModule,
     SignalsModule,
     RouterModule.forRoot([
-      {path: 'pnf', component: PageNotFoundComponent},
-      { path: '', redirectTo: 'pnf', pathMatch: 'full' },
-      //{ path: '**', redirectTo: 'pnf', pathMatch: 'full' }
+      {path: 'page-not-found', component: PageNotFoundComponent},
+      { path: '', redirectTo: 'signals', pathMatch: 'full' },
+      { path: '**', redirectTo: 'page-not-found', pathMatch: 'full' }
     ])
   ],
-  providers: [ TeamsService ],
+  providers: [ 
+    TeamsService,
+    //{provide: LocationStrategy, useClass: HashLocationStrategy}
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
