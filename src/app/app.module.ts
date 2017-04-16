@@ -7,7 +7,6 @@ import { RouterModule } from '@angular/router'
 //import { HashLocationStrategy, LocationStrategy } from '@angular/common'
 
 import { AppComponent } from './app.component'
-import { TeamsService } from './shared/teams.service'
 import { ActionsModule } from './actions/actions.module'
 import { MainNavigationComponent } from './shared/navigation/main-navigation.component'
 import { HeaderNavigationComponent } from './shared/navigation/header-navigation.component'
@@ -32,10 +31,6 @@ import { SignalsModule } from './signals/signals.module'
       { path: '', redirectTo: 'signals', pathMatch: 'full' },
       { path: '**', redirectTo: 'page-not-found', pathMatch: 'full' }
     ])
-  ],
-  providers: [ 
-    TeamsService,
-    //{provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [ AppComponent ]
 })

@@ -73,10 +73,6 @@ export class AddSignalComponent implements OnInit {
         this.showUploadedImage(image)   
     }
 
-    private handle(e){
-        console.log(e);
-    }
-
     private onSubmit(): void{
         console.log(this.model);
         console.log("submitted");
@@ -94,7 +90,7 @@ export class AddSignalComponent implements OnInit {
         headers.append('enctype', 'multipart/form-data');
         headers.append('Accept', 'application/json');
         let options = new RequestOptions({ headers: headers });
-        this._http.post("http://localhost:1322/signals", formData, options)
+        this._http.post("https://apifxsumo.azurewebsites.net/signals", formData, options)
             .map(res => res.json())
             .catch(error => Observable.throw(error))
             .subscribe(

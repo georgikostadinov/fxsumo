@@ -11,6 +11,8 @@ import { AddSignalComponent } from './add signal/add-signal.component'
 import { Select2Module } from 'ng2-select2'
 import { Ng2FileDropModule } from 'ng2-file-drop'
 
+import { SignalsService } from './signals.service'
+import { SignalsApi } from './SignalsApi'
 
 @NgModule({
     declarations: [
@@ -27,6 +29,10 @@ import { Ng2FileDropModule } from 'ng2-file-drop'
             { path: 'signals', component: SignalsListComponent},
             { path: 'add-signal', component: AddSignalComponent }
         ])
+    ],
+    providers: [
+        SignalsApi,
+        SignalsService
     ]
 })
 

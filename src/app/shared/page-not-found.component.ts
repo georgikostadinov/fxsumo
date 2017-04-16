@@ -1,26 +1,12 @@
-import { Component, OnInit } from '@angular/core'
-import { ActionsApi } from '../actions/ActionsApi'
-
-import { ActionViewModel } from '../model/ActionViewModel'
+import { Component } from '@angular/core'
 
 @Component({
-    templateUrl: 'page-not-found.component.html'
+    templateUrl: 'page-not-found.component.html',
+    styles: [`
+        
+    `]
 })
 
 
-export class PageNotFoundComponent implements OnInit{
-    actions: ActionViewModel[]
-    error: String
-
-    constructor(private _actionsService:ActionsApi){        
-    }
-
-    ngOnInit(): void{
-        this._actionsService
-        .actionsGet()
-        .subscribe(
-            actions => this.actions = actions,
-            error => this.error = <any>error
-        )
-    }
+export class PageNotFoundComponent {
  }
