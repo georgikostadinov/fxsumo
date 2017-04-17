@@ -7,6 +7,7 @@ import { CurrencyPairsModule } from '../currency-pairs/currency-pairs.module'
 
 import { SignalsListComponent } from './list/signals-list.component'
 import { AddSignalComponent } from './add signal/add-signal.component'
+import { SignalDetailsComponent } from './signal-details/signal-details.component'
 
 import { Select2Module } from 'ng2-select2'
 import { Ng2FileDropModule } from 'ng2-file-drop'
@@ -17,7 +18,8 @@ import { SignalsApi } from './SignalsApi'
 @NgModule({
     declarations: [
         SignalsListComponent,
-        AddSignalComponent
+        AddSignalComponent,
+        SignalDetailsComponent
     ],
     imports: [
         BrowserModule,
@@ -27,7 +29,8 @@ import { SignalsApi } from './SignalsApi'
         Ng2FileDropModule,
         RouterModule.forChild([
             { path: 'signals', component: SignalsListComponent},
-            { path: 'add-signal', component: AddSignalComponent }
+            { path: 'add-signal', component: AddSignalComponent },
+            { path: 'signal/:id', component: SignalDetailsComponent }
         ])
     ],
     providers: [

@@ -1,0 +1,5 @@
+<div *ngIf="signal">
+    <div *ngIf=signal.youtubeURL>
+        <iframe width="100%" height="300" [src]="youtubeURL(signal.youtubeURL) | safe" allowfullscreen></iframe>
+    </div>
+</div>

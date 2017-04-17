@@ -1,14 +1,12 @@
-<div *ngFor="let signal of _signalsSummary; let i = index">
-    <div [class.row]="index % 3 === 0">
-        <div class="col-sm-6 col-md-4">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="{{ signal.thumbnailURL }}" alt="Signal">
-                <div class="caption text-center">
-                    <p class="text-main text-bold mar-no">
-                        {{ signal.currency }} - {{ signal.action }} - {{ signal.explanation }} - {{ signal.createdOn | date: 'dd/MM/yyyy' }}
-                    </p>
-                </div>
-            </a>
-        </div>
+<div *ngFor="let row of _signalsSummary" class="row">
+    <div *ngFor="let signal of row" class="col-sm-6 col-md-4">
+        <a class="thumbnail" routerLink="/signal/{{signal.id}}">
+            <img class="img-responsive" src="{{ getThumbnailSource(signal) }}" width="400" height="300" alt="Signal">
+            <div class="caption text-center">
+                <p class="text-main text-bold mar-no">
+                    {{ signal.currency }} - {{ signal.action }} - {{ signal.explanation }} - {{ signal.createdOn | date: 'dd/MM/yyyy' }}
+                </p>
+            </div>
+        </a>
     </div>
 </div>

@@ -12,19 +12,41 @@
 
 import * as models from './models';
 
-export interface SignalShortSummaryViewModel {
+export interface SignalDetailsViewModel {
     id?: number;
-    
-    createdOn?: Date;
 
     explanation?: string;
 
-    currency?: string;
+    description?: string;
 
     action?: string;
 
-    thumbnailURL?: string;
+    openPrice?: number;
+
+    signalType?: string;
+
+    currency?: string;
+
+    currencyInfo?: string;
+
+    stopLoss?: number;
+
+    takeProfit1?: number;
+
+    takeProfit2?: number;
+
+    takeProfit3?: number;
+
+    takeProfit4?: number;
+
+    signalStatus?: string;
+
+    createdOn?: Date;
 
     youtubeURL?: string;
+
+    wistiaURL?: string;
+
+    imageURL?: string;
 
 }
