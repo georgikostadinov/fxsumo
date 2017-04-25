@@ -9,11 +9,20 @@ import { YoutubeService } from '../../shared/services/youtube.service'
 import { SignalDetailsViewModel } from '../../model/SignalDetailsViewModel'
 
 @Component({
-    templateUrl: 'signal-details.component.html'
+    templateUrl: 'signal-details.component.html',
+    styles: [
+        `.panel { 
+            margin-bottom: 0px
+         }
+         .panel-control {
+            padding: 0 10px 0 0
+         }`
+    ]
 })
 
 export class SignalDetailsComponent implements OnInit{
     signal: SignalDetailsViewModel
+    pricesCount: number = 0
 
     constructor(private _signalsService: SignalsService,
                 private route: ActivatedRoute,
@@ -29,6 +38,12 @@ export class SignalDetailsComponent implements OnInit{
                 this._signalsService.getSignalById(id).subscribe(
                     signal => {
                         this.signal = signal;
+                        this.pricesCount = signal.takeProfit1 != 0 ? ++this.pricesCount : this.pricesCount
+                        this.pricesCount = signal.takeProfit2 != 0 ? ++this.pricesCount : this.pricesCount
+                        this.pricesCount = signal.takeProfit3 != 0 ? ++this.pricesCount : this.pricesCount
+                        this.pricesCount = signal.takeProfit4 != 0 ? ++this.pricesCount : this.pricesCount
+                        this.pricesCount = signal.openPrice != 0 ? ++this.pricesCount : this.pricesCount
+                        this.pricesCount = signal.stopLoss != 0 ? ++this.pricesCount : this.pricesCount
                     }
                 )
             }
@@ -38,4 +53,6 @@ export class SignalDetailsComponent implements OnInit{
     public youtubeURL(url: string): SafeResourceUrl {
         return this._youtubeService.getEmbedURL(url);
     }
+
+
 }

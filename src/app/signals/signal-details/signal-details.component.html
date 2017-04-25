@@ -1,5 +1,87 @@
 <div *ngIf="signal">
-    <div *ngIf=signal.youtubeURL>
-        <iframe width="100%" height="300" [src]="youtubeURL(signal.youtubeURL) | safe" allowfullscreen></iframe>
+    <div class="form-group">
+        <div class="form-control">
+            <h2 class='text-center'>
+                {{ signal.explanation }} 
+            </h2>
+            <div class="text-center">
+                <b> {{ signal.currency }}({{ signal.currencyInfo }}) {{ signal.action }} </b>
+            </div>
+            <div class="text-center">
+                <b>{{ signal.createdOn | date: 'dd/MM/yyyy'}}</b>
+            </div>
+        </div>
+        <div class="form-control">
+            <div class="row">
+                <div *ngIf="signal.openPrice != 0" class="col-sm-{{ 12 / pricesCount }}">
+                    <div class="panel panel-bordered-primary">
+                        <div class="panel-heading">
+                            <div class="panel-control">
+                                <span class="badge badge-primary">{{ signal.openPrice }}</span>
+                            </div>
+                            <h4 class="panel-title">Open Price</h4> 
+                        </div>					            
+                    </div>
+                </div>
+                <div *ngIf="signal.stopLoss != 0" class="col-sm-{{ 12 / pricesCount }}">
+                    <div class="panel panel-bordered-danger">
+                        <div class="panel-heading">
+                            <div class="panel-control">
+                                <span class="badge badge-danger">{{ signal.stopLoss }}</span>
+                            </div>
+                            <h4 class="panel-title">Stop Loss</h4> 
+                        </div>					            
+                    </div>
+                </div>
+                <div *ngIf="signal.takeProfit1 != 0" class="col-sm-{{ 12 / pricesCount }}">
+                    <div class="panel panel-bordered-success">
+                        <div class="panel-heading">
+                            <div class="panel-control">
+                                <span class="badge badge-success">{{ signal.takeProfit1 }}</span>
+                            </div>
+                            <h4 class="panel-title">Take Profit 1</h4> 
+                        </div>					            
+                    </div>
+                </div>
+                <div *ngIf="signal.takeProfit2 != 0" class="col-sm-{{ 12 / pricesCount }}">
+                    <div class="panel panel-bordered-success">
+                        <div class="panel-heading">
+                            <div class="panel-control">
+                                <span class="badge badge-success">{{ signal.takeProfit2 }}</span>
+                            </div>
+                            <h4 class="panel-title">Take Profit 2</h4> 
+                        </div>					            
+                    </div>
+                </div>
+                <div *ngIf="signal.takeProfit3 != 0" class="col-sm-{{ 12 / pricesCount }}">
+                    <div class="panel panel-bordered-success">
+                        <div class="panel-heading">
+                            <div class="panel-control">
+                                <span class="badge badge-success">{{ signal.takeProfit3 }}</span>
+                            </div>
+                            <h4 class="panel-title">Take Profit 3</h4> 
+                        </div>					            
+                    </div>
+                </div>
+                <div *ngIf="signal.takeProfit4 != 0" class="col-sm-{{ 12 / pricesCount }}">
+                    <div class="panel panel-bordered-success">
+                        <div class="panel-heading">
+                            <div class="panel-control">
+                                <span class="badge badge-success">{{ signal.takeProfit4 }}</span>
+                            </div>
+                            <h4 class="panel-title">Take Profit 4</h4> 
+                        </div>					            
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="signal.description" [innerHTML]="signal.description" class="form-control">        
+        </div>
+        <div *ngIf="signal.youtubeURL" class="form-control">
+            <iframe width="100%" height="400" [src]="youtubeURL(signal.youtubeURL) | safe" allowfullscreen></iframe>
+        </div>
+        <div class="form-control">
+            <img [src]="signal.imageURL" width="100%" alt="graph">
+        </div>
     </div>
 </div>
