@@ -15,6 +15,8 @@ import { Ng2FileDropModule } from 'ng2-file-drop'
 import { SignalsService } from './signals.service'
 import { SignalsApi } from './SignalsApi'
 
+import { AuthGuardService } from '../shared/services/auth-guard.service'
+
 @NgModule({
     declarations: [
         SignalsListComponent,
@@ -29,7 +31,7 @@ import { SignalsApi } from './SignalsApi'
         Ng2FileDropModule,
         RouterModule.forChild([
             { path: 'signals', component: SignalsListComponent},
-            { path: 'add-signal', component: AddSignalComponent },
+            { path: 'add-signal', component: AddSignalComponent, canActivate: [ AuthGuardService ] },
             { path: 'signal/:id', component: SignalDetailsComponent }
         ])
     ],

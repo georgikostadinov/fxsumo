@@ -1,0 +1,23 @@
+<h1 id="waiting">Waiting...</h1>
+<div id="error"></div>
+<script>
+    new Oidc.UserManager().signinRedirectCallback().then(function (user) {
+            console.log("returned from identity server");
+            if (user == null) {
+                console.log("user does not exist");
+                document.getElementById("waiting").style.display = "none";
+                document.getElementById("error").innerText = "No sign-in request pending.";
+            }
+            else {
+                console.log("user logged");
+                console.log(user);
+                window.location = "/";
+            }
+        })
+        .catch(function (er) {
+                console.log("error");
+                console.log(er);
+            document.getElementById("waiting").style.display = "none";
+            document.getElementById("error").innerText = er.message;
+        });
+</script>

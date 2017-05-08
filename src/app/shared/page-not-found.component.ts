@@ -1,10 +1,7 @@
 import { Component } from '@angular/core'
 
 @Component({
-    templateUrl: 'page-not-found.component.html',
-    styles: [`
-        
-    `]
+    templateUrl: 'page-not-found.component.html'
 })
 
 

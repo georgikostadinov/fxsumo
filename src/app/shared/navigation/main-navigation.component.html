@@ -4,6 +4,22 @@
 
         <!--Menu-->
         <!--================================-->
+        <div id="mainnav-profile" class="mainnav-profile" *ngIf="user">
+            <div class="profile-wrap">
+                <a href="#profile-nav" class="box-block" data-toggle="collapse" aria-expanded="true">
+                    <span class="pull-right dropdown-toggle">
+                        <i class="dropdown-caret"></i>
+                    </span>
+                    <p class="mnp-name">{{user.profile.name}}</p>
+                    <span class="mnp-desc">{{user.profile.email}}</span>
+                </a>
+            </div>
+            <div id="profile-nav" class="list-group bg-trans collapse in" aria-expanded="true">
+                <a (click)="startSignoutMainWindow()" class="list-group-item" >
+                    <i class="ti-unlock icon-lg icon-fw"></i> Logout
+                </a>
+            </div>
+        </div>
         <div id="mainnav-menu-wrap">
             <div class="nano">
                 <div class="nano-content">

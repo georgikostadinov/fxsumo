@@ -11,6 +11,7 @@ import { ActionsModule } from './actions/actions.module'
 import { MainNavigationComponent } from './shared/navigation/main-navigation.component'
 import { HeaderNavigationComponent } from './shared/navigation/header-navigation.component'
 import { PageNotFoundComponent } from './shared/page-not-found.component'
+import { LoginCallbackComponent } from './shared/login-callback.component'
 import { SignalsModule } from './signals/signals.module'
 
 @NgModule({
@@ -18,6 +19,7 @@ import { SignalsModule } from './signals/signals.module'
     AppComponent,
     MainNavigationComponent,
     HeaderNavigationComponent,
+    LoginCallbackComponent,
     PageNotFoundComponent
   ],
   imports: [
@@ -27,9 +29,10 @@ import { SignalsModule } from './signals/signals.module'
     ActionsModule,
     SignalsModule,
     RouterModule.forRoot([
-      {path: 'page-not-found', component: PageNotFoundComponent},
+      { path:'login-callback', redirectTo:'/auth.html' },
+      { path: 'page-not-found', component: PageNotFoundComponent },
       { path: '', redirectTo: 'signals', pathMatch: 'full' },
-      { path: '**', redirectTo: 'page-not-found', pathMatch: 'full' }
+      //{ path: '**', redirectTo: 'page-not-found', pathMatch: 'full' }
     ])
   ],
   bootstrap: [ AppComponent ]

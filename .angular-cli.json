@@ -9,11 +9,13 @@
       "root": "src",
       "outDir": "dist",
       "assets": [
+        {"glob":"**/*.js", "input":"../node_modules/oidc-client/dist/","output":"./"},
         "assets",
 		"img",
 		"fonts",
 		"themify-icons/fonts",
-        "favicon.ico"
+        "favicon.ico",
+        { "glob": "auth.html", "input": "./", "output": "./" }
       ],
       "index": "index.html",
       "main": "main.ts",

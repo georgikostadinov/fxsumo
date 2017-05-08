@@ -9,6 +9,8 @@ import { SimpleTinyComponent } from './simple-tiny.component'
 
 import { Select2Grouping } from './select2.grouping'
 import { YoutubeService } from './services/youtube.service'
+import { AuthService } from './services/auth.service'
+import { AuthGuardService } from './services/auth-guard.service'
 
 @NgModule({
     imports: [
@@ -28,7 +30,9 @@ import { YoutubeService } from './services/youtube.service'
     ],
     providers: [
         Select2Grouping,
-        YoutubeService
+        YoutubeService,
+        AuthService,
+        AuthGuardService
     ]
 })
 
