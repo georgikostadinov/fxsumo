@@ -30,9 +30,9 @@ import { AuthGuardService } from '../shared/services/auth-guard.service'
         CurrencyPairsModule,
         Ng2FileDropModule,
         RouterModule.forChild([
-            { path: 'signals', component: SignalsListComponent},
+            { path: 'signals', component: SignalsListComponent, canActivate: [ AuthGuardService ]},
             { path: 'add-signal', component: AddSignalComponent, canActivate: [ AuthGuardService ] },
-            { path: 'signal/:id', component: SignalDetailsComponent }
+            { path: 'signal/:id', component: SignalDetailsComponent, canActivate: [ AuthGuardService ] }
         ])
     ],
     providers: [

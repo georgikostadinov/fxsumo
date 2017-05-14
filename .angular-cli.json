@@ -14,6 +14,7 @@
 		"img",
 		"fonts",
 		"themify-icons/fonts",
+		"solid-icons/fonts",
         "favicon.ico",
         { "glob": "auth.html", "input": "./", "output": "./" }
       ],
@@ -28,7 +29,8 @@
 		"css/bootstrap.min.css",		
 		"css/nifty.min.css",
 		"css/pace.min.css",
-		"themify-icons/themify-icons.min.css"
+		"themify-icons/themify-icons.min.css",
+		"solid-icons/premium-solid-icons.min.css"
       ],
       "scripts": [
 		"js/jquery-2.2.4.min.js",

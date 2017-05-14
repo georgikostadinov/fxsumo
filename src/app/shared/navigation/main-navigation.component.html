@@ -6,7 +6,7 @@
         <!--================================-->
         <div id="mainnav-profile" class="mainnav-profile" *ngIf="user">
             <div class="profile-wrap">
-                <a href="#profile-nav" class="box-block" data-toggle="collapse" aria-expanded="true">
+                <a href="#profile-nav" class="box-block" data-toggle="collapse" aria-expanded="false">
                     <span class="pull-right dropdown-toggle">
                         <i class="dropdown-caret"></i>
                     </span>
@@ -14,7 +14,7 @@
                     <span class="mnp-desc">{{user.profile.email}}</span>
                 </a>
             </div>
-            <div id="profile-nav" class="list-group bg-trans collapse in" aria-expanded="true">
+            <div id="profile-nav" class="collapse list-group bg-trans">
                 <a (click)="startSignoutMainWindow()" class="list-group-item" >
                     <i class="ti-unlock icon-lg icon-fw"></i> Logout
                 </a>
@@ -28,6 +28,7 @@
                         <!--Menu list item-->
                         <li routerLinkActive="active-link">
                             <a routerLink="/signals">
+                                <i class="psi-bar-chart"></i>
                                 <span class="menu-title">Signals</span>
                             </a>
                         </li>
@@ -36,7 +37,9 @@
                         <li routerLinkActive="active-link">
                             <a routerLink="/add-signal">
                                 <span class="menu-title">
+                                    <i class="psi-bar-chart"></i>
                                     <strong>Add Signal</strong>
+                                    <span class="label label-success pull-right">Admin</span>
                                 </span>
                             </a>
                         </li>

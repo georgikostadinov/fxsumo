@@ -29,10 +29,9 @@ import { SignalsModule } from './signals/signals.module'
     ActionsModule,
     SignalsModule,
     RouterModule.forRoot([
-      { path:'login-callback', redirectTo:'/auth.html' },
       { path: 'page-not-found', component: PageNotFoundComponent },
       { path: '', redirectTo: 'signals', pathMatch: 'full' },
-      //{ path: '**', redirectTo: 'page-not-found', pathMatch: 'full' }
+      { path: '**', redirectTo: 'page-not-found', pathMatch: 'full' }
     ])
   ],
   bootstrap: [ AppComponent ]

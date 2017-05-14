@@ -9,7 +9,7 @@ const settings: any = {
   client_id: 'fxsumo',
   redirect_uri: 'http://fxsumo.azurewebsites.net/auth.html',
   post_logout_redirect_uri: 'http://fxsumo.azurewebsites.net/',*/
-  authority: 'http://localhost:5000',
+  authority: 'http://authfxsumo.azurewebsites.net/',
   client_id: 'fxsumo',
   redirect_uri: 'http://localhost:4200/auth.html',
   post_logout_redirect_uri: 'http://localhost:4200/',
