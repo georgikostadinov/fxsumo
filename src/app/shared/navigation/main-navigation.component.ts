@@ -11,6 +11,8 @@ import { User } from 'oidc-client'
 export class MainNavigationComponent implements OnInit{
     private user: User
     private loadedUserSub: any
+    private isAdmin: boolean
+
     constructor(private authService:AuthService){
     }
 
@@ -20,6 +22,8 @@ export class MainNavigationComponent implements OnInit{
             this.user = user;
         });
         this.authService.getUser();
+        this.authService.hasRole("admin")
+            .subscribe((hasAdminRole) => this.isAdmin = hasAdminRole)
     }
 
     public startSignoutMainWindow(): void{ 

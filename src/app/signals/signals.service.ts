@@ -1,19 +1,29 @@
 import { Injectable } from '@angular/core'
-import { SignalsApi } from './SignalsApi'
-import { Observable } from 'rxjs/Observable';
-import { SignalShortSummaryViewModel, SignalDetailsViewModel } from '../model/models';
+import { Observable } from 'rxjs/Observable'
+import { SignalShortSummaryViewModel, SignalDetailsViewModel } from '../model/models'
+import { ApiAuthService } from '../shared/services/api-auth.service'
+import { AuthService } from '../shared/services/auth.service'
+import { RequestOptions, URLSearchParams } from '@angular/http'
+
 
 @Injectable() 
-export class SignalsService{
-    constructor(private _signalsApi: SignalsApi){
-
+export class SignalsService extends ApiAuthService{
+    constructor(_authService: AuthService){
+        super(_authService);
     }
 
-    getSignalsSummary(count: number, skip: number, extraHttpRequestParams?: any): Observable<Array<SignalShortSummaryViewModel>>{
-        return this._signalsApi.signalsSummaryGet(count, skip, extraHttpRequestParams);
+    getSignalsSummary(count: number, skip: number, extraHttpRequestParams?: RequestOptions): Observable<Array<SignalShortSummaryViewModel>>{
+        return super.Get('Signals/Summary', extraHttpRequestParams, {
+            count: count,
+            skip: skip
+        });
     }
 
     getSignalById(id: number, extraHttpRequestParams?: any): Observable<SignalDetailsViewModel>{
-        return this._signalsApi.signalsByIdGet(id);
+        return super.Get(`Signals/${id}`, extraHttpRequestParams);
+    }
+
+    postSignal(formData: FormData,  options: RequestOptions){
+        return super.Post('Signals', formData, options);
     }
 }

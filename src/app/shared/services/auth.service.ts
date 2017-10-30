@@ -4,17 +4,18 @@ import { Observable } from 'rxjs/Rx';
 
 import { UserManager, User } from 'oidc-client';
 
-const settings: any = {
+const settings: Oidc.UserManagerSettings = {
  /* authority: 'http://auth.fxsumo.azurewebsites.net',
   client_id: 'fxsumo',
   redirect_uri: 'http://fxsumo.azurewebsites.net/auth.html',
   post_logout_redirect_uri: 'http://fxsumo.azurewebsites.net/',*/
-  authority: 'http://authfxsumo.azurewebsites.net/',
+  authority: 'http://localhost:29894/',
   client_id: 'fxsumo',
-  redirect_uri: 'http://fxsumo.azurewebsites.net/auth.html',
-  post_logout_redirect_uri: 'http://fxsumo.azurewebsites.net/',
+  redirect_uri: 'http://localhost:4200/auth.html',
+  post_logout_redirect_uri: 'http://localhost:4200/',
   response_type: 'id_token token',
-  scope: 'openid profile fxsumo',
+  scope: 'openid profile roles fxsumoapi',
+  loadUserInfo: true
 
   /*silent_redirect_uri: 'http://localhost:4200/silent-renew.html',
   automaticSilentRenew: true,
@@ -69,6 +70,16 @@ export class AuthService {
     return Observable.fromPromise(this.mgr.getUser()).map<User, boolean>((user) => {
       if (user) {
         console.log(user);
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
+
+  hasRole(role:string): Observable<boolean>{
+    return Observable.fromPromise(this.mgr.getUser()).map<User, boolean>((user) => {
+      if (user && user.profile && user.profile.role && user.profile.role.indexOf(role) != -1) {
         return true;
       } else {
         return false;
@@ -141,21 +152,24 @@ export class AuthService {
    * Example of how you can make auth request using angulars http methods.
    * @param options if options are not supplied the default content type is application/json
    */
-  AuthGet(url: string, options?: RequestOptions): Observable<Response> {
-
+  AuthGet(url: string, options?: RequestOptions): Observable<any> {
     if (options) {
       options = this._setRequestOptions(options);
     }
     else {
       options = this._setRequestOptions();
     }
-    return this.http.get(url, options);
+
+    return this.http
+      .get(url, options)
+      .map((response: Response) => {
+          return response.json();
+      });
   }
   /**
    * @param options if options are not supplied the default content type is application/json
    */
   AuthPut(url: string, data: any, options?: RequestOptions): Observable<Response> {
-
     let body = JSON.stringify(data);
 
     if (options) {
@@ -191,7 +205,7 @@ export class AuthService {
     } else {
       options = this._setRequestOptions();
     }
-    return this.http.post(url, body, options);
+    return this.http.post(url, data, options);
   }
 
 
@@ -209,7 +223,12 @@ export class AuthService {
       this._setAuthHeaders(this.currentUser);
     }
     if (options) {
-      options.headers.append(this.authHeaders.keys[0], this.authHeaders.values[0]);
+      if(!options.headers){
+        options.headers = this.authHeaders;
+      }
+      else  {
+        options.headers.append(this.authHeaders.keys()[0], this.authHeaders.values()[0][0]);
+      }
     } else {
       options = new RequestOptions({ headers: this.authHeaders, body: '' });
     }

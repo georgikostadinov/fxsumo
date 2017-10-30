@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core'
 import { Http, RequestOptions, RequestOptionsArgs, Headers } from '@angular/http'
 import { Observable }                                        from 'rxjs/Rx'
+import { User } from 'oidc-client'     
+import { Subscription } from 'rxjs/Subscription'   
 
 import { ActionsService } from '../../actions/actions.service'
 import { CurrencyPairsService } from '../../currency-pairs/currency-pairs.service'
+import { AuthService } from '../../shared/services/auth.service'
+import { SignalsService } from '../../signals/signals.service'
 import { Select2Grouping } from '../../shared/select2.grouping'
 
 import { ActionViewModel } from '../../model/ActionViewModel'
@@ -36,26 +40,27 @@ export class AddSignalComponent implements OnInit {
     private supportedFileTypes: string[] = ['image/png', 'image/jpeg', 'image/gif'];
     private imageShown: boolean = false;
     private currentImage: string = '';
-    private model: AddSignalViewModel = { }
+    private model: AddSignalViewModel = { };
 
     constructor(private _actionsService:ActionsService, 
                 private _select2grouping: Select2Grouping,
                 private _currencyPairsService: CurrencyPairsService,
+                private _signalsService: SignalsService,
                 private _http: Http){        
     }
 
     ngOnInit(): void{
         this._actionsService
-        .getAllActions()
-        .subscribe(
-            actions => this.actions = this._select2grouping.transform(actions, "actionType", "id", "name")
-        )
+            .getAllActions()
+            .subscribe(
+                actions => this.actions = this._select2grouping.transform(actions, "actionType", "id", "name")
+            )
 
         this._currencyPairsService
-        .getAllCurrencyPairs()
-        .subscribe(
-            currencyPairs => this.currencyPairs = this._select2grouping.transform(currencyPairs, "currencyPairType", "id", "abbreviation")
-        )
+            .getAllCurrencyPairs()
+            .subscribe(
+                currencyPairs => this.currencyPairs = this._select2grouping.transform(currencyPairs, "currencyPairType", "id", "abbreviation")
+            )
     }
 
     private dragFileAccepted(acceptedFile: Ng2FileDropAcceptedFile) { 
@@ -74,10 +79,6 @@ export class AddSignalComponent implements OnInit {
     }
 
     private onSubmit(): void{
-        console.log(this.model);
-        console.log("submitted");
-        //let fileList: FileList = event.target.files;
-        //let file = fileList[0]
         let formData:FormData = new FormData();
 
         for (var key in this.model) {
@@ -90,13 +91,8 @@ export class AddSignalComponent implements OnInit {
         headers.append('enctype', 'multipart/form-data');
         headers.append('Accept', 'application/json');
         let options = new RequestOptions({ headers: headers });
-        this._http.post("https://apifxsumo.azurewebsites.net/signals", formData, options)
-            .map(res => res.json())
-            .catch(error => Observable.throw(error))
-            .subscribe(
-                data => console.log('success'),
-                error => console.log(error)
-            )
+        this._signalsService.postSignal(formData, options)
+            .subscribe();
     }   
 
     private showUploadedImage(image: File){

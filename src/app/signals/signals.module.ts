@@ -13,7 +13,6 @@ import { Select2Module } from 'ng2-select2'
 import { Ng2FileDropModule } from 'ng2-file-drop'
 
 import { SignalsService } from './signals.service'
-import { SignalsApi } from './SignalsApi'
 
 import { AuthGuardService } from '../shared/services/auth-guard.service'
 
@@ -36,7 +35,6 @@ import { AuthGuardService } from '../shared/services/auth-guard.service'
         ])
     ],
     providers: [
-        SignalsApi,
         SignalsService
     ]
 })

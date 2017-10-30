@@ -29,6 +29,7 @@
 		"css/bootstrap.min.css",		
 		"css/nifty.min.css",
 		"css/pace.min.css",
+		"css/themes/type-c/theme-light.min.css",
 		"themify-icons/themify-icons.min.css",
 		"solid-icons/premium-solid-icons.min.css"
       ],

@@ -34,7 +34,7 @@
                         </li>
             
                         <!--Menu list item-->
-                        <li routerLinkActive="active-link">
+                        <li routerLinkActive="active-link" *ngIf="isAdmin">
                             <a routerLink="/add-signal">
                                 <span class="menu-title">
                                     <i class="psi-bar-chart"></i>
